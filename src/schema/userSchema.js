@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt')
 const userSchema = new mongoose.Schema({
-    firstname:{
+    firstName:{
         type: String,
         required: [true,"first name is required"],
         minlength: [5,"Should be >=5"],
@@ -8,7 +9,7 @@ const userSchema = new mongoose.Schema({
         trim: true,
         lowercase:true
     },
-    lastname:{
+    lastName:{
         type: String,
         required: [true,"first name is required"],
         minlength: [5,"Should be >=5"],
@@ -28,17 +29,26 @@ const userSchema = new mongoose.Schema({
         required: [true,"Email is required"],
         trim: true,
         unique: [true,"Email already in use"],
-        // match:[/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$,/,"Please fill valid Email"] //regex
+        //  match:[/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$,/,"Please fill valid Email"] //regex
     },
     password:{
         type: String,
         required: [true,"Password is required"],
         minlength: [8,"Should be >=8"],
-        match: [/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,"Invalid"]
+        // match: [/^\w+(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,"Invalid"]
     }
 },{
     timestamps: true,
 }
 );
+
+userSchema.pre('save', async function (){
+    // console.log('Executing pre save hook');
+     //this refer to schema sent by user
+   const hashedPassword = await bcrypt.hash(this.password,10);
+   this.password = hashedPassword;
+//    console.log(this);
+//     console.log('After this');
+})
 const user =mongoose.model("user",userSchema);
 module.exports = user;
