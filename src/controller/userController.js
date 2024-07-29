@@ -7,7 +7,7 @@ async function createUser(req,res){
         const responce = await userServices(req.body)
         console.log("responce: "+responce)
     return res.json({
-        message:'SuccessFully user registered',
+        message:'Successfully user registered',
         success: true,
         error:{},
         data: responce,

@@ -22,14 +22,15 @@ const productSchema = new mongoose.Schema({
         default: 10
     },
     category:{
+        type: String,
         required: true,
         enum:['veg', 'non-veg','dessert', 'bevrages', 'sides'],
 
     },
-    inStock:{
-        required: [true,"In Stock info is mandatory"],
+    inStock: {
         type: Boolean,
-        dafault: true
+        required: true,  
+        default: true
     }
 },{
     timestamps: true
@@ -38,4 +39,6 @@ const productSchema = new mongoose.Schema({
 
 const product = mongoose.model('product',productSchema);
 
+
 module.exports = product;
+
