@@ -15,19 +15,21 @@ const { findUser, createUser } = require("../repositories/userRepositoy")
     email : userDetails.email,
     mobileNumber: userDetails.mobileNumber,
    })
-   
+   console.log("user is: "+user);
    if(user){
     console.log("User found with detail: "+user);
     throw{reason:"phone or email already exist", statusCode:400}
    }
-    //2. otherwise create new user
+    //2. otherwise create new user 
    else{
+    console.log("creating new user");
     const newUser = await createUser({
         email: userDetails.email,
         firstName: userDetails.firstName,
         lastName: userDetails.lastName,
         password: userDetails.password,
-        mobileNumber: userDetails.mobileNumber
+        mobileNumber: userDetails.mobileNumber,
+        role: userDetails.role
     })
     console.log("New user created as: "+ newUser)
     if(!newUser)
@@ -40,4 +42,4 @@ const { findUser, createUser } = require("../repositories/userRepositoy")
 }
 module.exports = {
     userServices
-}
+} 

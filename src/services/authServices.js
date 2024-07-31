@@ -26,7 +26,8 @@ const { SECRET_KEY, JWT_EXPIRE } = require("../config/config");
         throw({reason:"Invalid Password",statusCode:401})
    
     //3. if valid create and send token
-    const token = jwt.sign({email: user.email, id: user._id},SECRET_KEY,{
+    const userRole = user.role? user.role: 'USER'
+    const token = jwt.sign({email: user.email, id: user._id, role: userRole},SECRET_KEY,{
         expiresIn: JWT_EXPIRE
     })
    

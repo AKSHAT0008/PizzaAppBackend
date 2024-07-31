@@ -15,9 +15,11 @@ const user = require("../schema/userSchema");
         }
     }
 
-    async function createUser(userDetail){
+    async function createUser(userDetail){  
         try{
-        const responce = user.create(userDetail)
+            console.log("Inside createUser");
+          
+        const responce = await user.create(userDetail)
         console.log(responce);
         return responce;
         }

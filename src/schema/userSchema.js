@@ -36,6 +36,11 @@ const userSchema = new mongoose.Schema({
         required: [true,"Password is required"],
         minlength: [8,"Should be >=8"],
         // match: [/^\w+(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,"Invalid"]
+    },
+    role:{
+        type: String,
+        enum: ['ADMIN','USER'],
+        default: 'USER'
     }
 },{
     timestamps: true,

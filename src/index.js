@@ -4,7 +4,7 @@ const DBconnect = require('./config/dbConfig.js');
 const userRoute = require('./routes/userRoute.js');
 const authRoute = require('./routes/authRoute.js');
 const cookieParser = require('cookie-parser');
-const isLoggedIn = require('./validation/authvalidation.js');
+const {isLoggedIn, isAdmin} = require('./validation/authvalidation.js');
 // const upload = require('./multerMiddleware/multerMiddleware.js');
 // const cloudinary = require('./config/cloudinaryConfig.js');
 // const fs = require('fs/promises');
@@ -22,14 +22,14 @@ app.use('/user',userRoute);
 app.use('/login',authRoute);
 app.use('/product',productRoute);
 
-
-app.post("/ping",isLoggedIn,(req,res)=>{
+ 
+app.post("/ping",isLoggedIn,isAdmin,(req,res)=>{
     console.log(req.body);
     console.log(req.cookies); 
     return res.json({message:"pong"});
 })
 // app.post('/photo',upload.single('productImage'),async (req,res)=>{
-    
+       
 //     try{
 //      console.log("File is: "+JSON.stringify( req.file, null, 2));   
 //     const result = await cloudinary.uploader.upload(req.file.path);
