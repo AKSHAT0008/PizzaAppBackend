@@ -1,6 +1,7 @@
 
     //a constructor which takes object of userRepo which contains a funtion to findUser if exists
 
+const { createCart } = require("../repositories/cartRepository");
 const { findUser, createUser } = require("../repositories/userRepositoy")
 
     
@@ -34,7 +35,9 @@ const { findUser, createUser } = require("../repositories/userRepositoy")
     console.log("New user created as: "+ newUser)
     if(!newUser)
         throw({reason:"Something went wrong",statusCode:500})
-   
+    
+   const createdCart =  await createCart(newUser._id)
+    console.log("cart created as:- "+ createdCart);
     //3. return detail
     return newUser;
    }

@@ -10,6 +10,7 @@ const {isLoggedIn, isAdmin} = require('./validation/authvalidation.js');
 // const fs = require('fs/promises');
 // const productService = require('./services/productServices.js');
 const productRoute = require('./routes/productRoute.js');
+const cartRoute = require('./routes/cartRoutes.js');
 // const user = require('./schema/userSchema.js');   
 
 const app= express();
@@ -21,7 +22,7 @@ app.use(cookieParser());
 app.use('/user',userRoute);
 app.use('/login',authRoute);
 app.use('/product',productRoute);
-
+app.use('/cart', cartRoute);
  
 app.post("/ping",isLoggedIn,isAdmin,(req,res)=>{
     console.log(req.body);
